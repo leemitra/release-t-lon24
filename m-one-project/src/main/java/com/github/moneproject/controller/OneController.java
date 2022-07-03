@@ -20,7 +20,8 @@ public class OneController {
     public String getHome(){
         RuntimeEngine engine= runtimeManager.getRuntimeEngine(EmptyContext.get());
         KieSession kieSession= engine.getKieSession();
-        ProcessInstance instance =  kieSession.startProcess("com.example.sample");
+        ///ProcessInstance instance =  kieSession.startProcess("com.example.sample");
+        ProcessInstance instance =  kieSession.startProcess("com.group.bankLoadProcess");
         System.out.println(instance.getId());
         runtimeManager.disposeRuntimeEngine(engine);
         kieSession.dispose();

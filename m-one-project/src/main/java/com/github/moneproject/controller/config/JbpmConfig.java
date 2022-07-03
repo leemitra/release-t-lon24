@@ -90,6 +90,7 @@ public class JbpmConfig {
         assets.put(ResourceFactory
                 .newClassPathResource("jbpm/processes/sample.bpmn"),
                 ResourceType.BPMN2);
+        assets.put(ResourceFactory.newClassPathResource("jbpm/processes/bankLoadProcess.bpmn2"), ResourceType.BPMN2);        
         return assets;
     }
 
