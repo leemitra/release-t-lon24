@@ -5,237 +5,75 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.2</version>
+		<version>2.7.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.groupproject</groupId>
-	<artifactId>release-t-lon24</artifactId>
+	<groupId>com.github</groupId>
+	<artifactId>main-project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<name>spring-jbpm-app</name>
+	<packaging>pom</packaging>  
+	<name>main-project</name>
 	<description>Demo project for Spring Boot</description>
-	
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>11</java.version>
-
-		<drools.version>7.42.0.Final</drools.version>
-		<jbpm.version>7.42.0.Final</jbpm.version>
+		<version.org.drools>7.66.0.Final</version.org.drools>
+    <version.org.jbpm>7.66.0.Final</version.org.jbpm>
 	</properties>
 	
-	<modules>
-		<module>m-one-project</module>
-		<module>m-two-project</module>
-	</modules>
-	<dependencyManagement>
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+	<modules>  
+<module>m-one-project</module>   
+</modules> 
+	
+	
+	 <dependencyManagement>
+    <dependencies>
+      <!-- define drools BOM -->
+      <dependency>
+        <groupId>org.drools</groupId>
+        <artifactId>drools-bom</artifactId>
+        <type>pom</type>
+        <version>${version.org.drools}</version>
+        <scope>import</scope>
+      </dependency>
+      <!-- define drools BOM -->
+      <dependency>
+        <groupId>org.jbpm</groupId>
+        <artifactId>jbpm-bom</artifactId>
+        <type>pom</type>
+        <version>${version.org.jbpm}</version>
+        <scope>import</scope>
+      </dependency>
+	  
+	  
+	<dependency>
+		<groupId>org.kie</groupId>
+		<artifactId>kie-spring</artifactId>
+		<version>7.66.0.Final</version>
+	</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		
-		<dependency>
-    <groupId>com.h2database</groupId>
-    <artifactId>h2</artifactId>
-    <scope>runtime</scope>
+
+<!--dependency>
+    <groupId>org.kie</groupId>
+    <artifactId>kie-api</artifactId>
+    <version>7.66.0.Final</version>
+</dependency>
+  
+<dependency>
+    <groupId>org.kie</groupId>
+    <artifactId>kie-internal</artifactId>
+    <version>7.66.0.Final</version>
 </dependency>
 
-		<!-- <dependency>
-			<groupId>com.oracle.ojdbc</groupId>
-			<artifactId>ojdbc10</artifactId>
-			<scope>runtime</scope>
-		</dependency> -->
-      
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		
-		  <!-- JSTL for JSP -->
-    <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>jstl</artifactId>
-    </dependency>
+<dependency>
+    <groupId>org.kie</groupId>
+    <artifactId>kie-ci</artifactId>
+    <version>7.66.0.Final</version>
+</dependency -->
 
-    <!-- For JSP compilation -->
-  
-    
-    <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
+    </dependencies>
+  </dependencyManagement>
 
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-			<scope>provided</scope>
-		</dependency>
-	
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-		</dependency>
-	
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-		</dependency>
-		
-		 <dependency>
-      <groupId>org.kie</groupId>
-      <artifactId>kie-api</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.kie</groupId>
-      <artifactId>kie-internal</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.drools</groupId>
-      <artifactId>drools-core</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.drools</groupId>
-      <artifactId>drools-compiler</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.drools</groupId>
-      <artifactId>drools-persistence-jpa</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-flow</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-flow-builder</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-bpmn2</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-audit</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-persistence-jpa</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-human-task-core</artifactId>
-      <version>${jbpm.version}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>jboss-annotations-api_1.1_spec</artifactId>
-          <groupId>org.jboss.spec.javax.annotation</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-human-task-jpa</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-human-task-workitems</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-human-task-audit</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-runtime-manager</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-services-api</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-  <!--   <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-kie-services</artifactId>
-      <version>${jbpm.version}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>freemarker</artifactId>
-          <groupId>org.freemarker</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>javassist</artifactId>
-          <groupId>javassist</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-workitems</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
--->
-    <dependency>
-      <groupId>org.kie</groupId>
-      <artifactId>kie-spring</artifactId>
-      <version>${jbpm.version}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>drools-decisiontables</artifactId>
-          <groupId>org.drools</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>drools-templates</artifactId>
-          <groupId>org.drools</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency> 
-    
-	</dependencies>
-
-
-	</dependencyManagement>
- 
-	
-
-	
-	<build>
+		<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -251,20 +89,19 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	
 	<repositories>
-		<repository>
-			<id>jboss-public-repository-group</id>
-			<name>JBoss Public Repository Group</name>
-			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
-			<releases>
-				<enabled>true</enabled>
-				<updatePolicy>never</updatePolicy>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>daily</updatePolicy>
-			</snapshots>
-		</repository>
-	</repositories>
+    <repository>
+      <id>jboss-public-repository-group</id>
+      <name>JBoss Public Repository Group</name>
+      <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <updatePolicy>daily</updatePolicy>
+      </snapshots>
+    </repository>
+  </repositories>
+
 </project>
