@@ -1,0 +1,141 @@
+package com.github.moneproject.controller.config;
+
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
+import javax.naming.NamingException;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.sql.DataSource;
+
+import org.kie.api.io.Resource;
+import org.kie.api.io.ResourceType;
+import org.kie.api.runtime.manager.RuntimeEngine;
+import org.kie.api.runtime.manager.RuntimeEnvironment;
+import org.kie.api.runtime.manager.RuntimeManager;
+//import org.kie.api.runtime.manager.RuntimeManager;
+import org.kie.api.task.UserGroupCallback;
+import org.kie.internal.io.ResourceFactory;
+import org.kie.internal.runtime.manager.context.EmptyContext;
+import org.kie.spring.factorybeans.RuntimeEnvironmentFactoryBean;
+import org.kie.spring.factorybeans.RuntimeManagerFactoryBean;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+
+@Configuration
+public class OneBpmnConfiguration {
+
+    @Primary
+	@Bean("appDataSource")
+	public DataSource getAppDataSource() {
+		DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
+		dataSourceBuilder.driverClassName("org.mariadb.jdbc.Driver");
+		dataSourceBuilder.url("jdbc:mariadb://localhost:3306/moneproject?createDatabaseIfNotExist=true");
+		dataSourceBuilder.username("root");
+		dataSourceBuilder.password("root");
+		/*dataSourceBuilder.driverClassName("org.h2.Driver");
+		dataSourceBuilder.url("jdbc:h2:mem:testapp");
+		dataSourceBuilder.username("sa");
+		dataSourceBuilder.password("sa");*/
+		return dataSourceBuilder.build();
+	}
+
+
+    
+    @Bean
+    public EntityManagerFactory entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+        emf.setDataSource(getAppDataSource());
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setGenerateDdl(true);
+        //JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        emf.setJpaVendorAdapter(vendorAdapter);
+        emf.setPersistenceUnitName("org.jbpm.persistence.jpa");   
+        emf.setJpaProperties(additionalProperties());
+        emf.afterPropertiesSet();
+        return emf.getObject();
+    }
+
+	Properties additionalProperties() {
+		Properties properties = new Properties();
+		properties.setProperty("hibernate.max_fetch_depth", "3");
+		properties.setProperty("hibernate.hbm2ddl.auto", "update");
+		properties.setProperty("hibernate.show_sql", "true");
+		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MariaDB106Dialect");
+		//properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
+		return properties;
+	}
+
+    /* @Bean(name = "transactionManager")
+    public PlatformTransactionManager transactionManager() {
+        JpaTransactionManager tm = new JpaTransactionManager();
+        tm.setEntityManagerFactory(entityManagerFactory());
+        return tm;
+    } */
+
+    @Bean
+    public PlatformTransactionManager transactionManager() throws NamingException {
+        return new JpaTransactionManager(entityManagerFactory());
+    }
+
+    @Bean
+	public UserGroupCallback getUserCallBack() {
+		return new CustomUserGroupCallback();
+	}
+
+ 
+    @Bean(name = "runtimeManager", destroyMethod = "close")
+	public RuntimeManagerFactoryBean runtimeManager() {
+        RuntimeManagerFactoryBean rmf = new RuntimeManagerFactoryBean();
+        rmf.setIdentifier("spring-rm");
+        try {
+            rmf.setRuntimeEnvironment((RuntimeEnvironment) runtimeEnvironment()
+                    .getObject());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        rmf.setType("PER_PROCESS_INSTANCE");
+        return rmf;
+	} 
+
+    @Bean
+	public RuntimeEnvironmentFactoryBean runtimeEnvironment() throws NamingException {
+	    RuntimeEnvironmentFactoryBean ref = new RuntimeEnvironmentFactoryBean();
+	    ref.setType("DEFAULT");
+	    
+        ref.setEntityManagerFactory(entityManagerFactory());
+        ref.setTransactionManager(transactionManager());
+	    ref.setUserGroupCallback(getUserCallBack());
+	     ref.setAssets(getAssets());
+	    return ref;
+	}  
+/* 
+  	@Bean
+	public RuntimeEngine runtimeEngine(RuntimeManager runtimeManager) {
+
+		RuntimeEngine runtimeEngine = runtimeManager.getRuntimeEngine(EmptyContext.get());
+		return runtimeEngine;
+	} 
+     */
+
+
+    private Map<Resource, ResourceType> getAssets() {
+	    Map<Resource, ResourceType> assets = new HashMap<Resource, ResourceType>();
+	    assets.put(ResourceFactory
+	            .newClassPathResource("jbpm/processes/sample.bpmn2"),
+	            ResourceType.BPMN2);
+	    assets.put(ResourceFactory
+	            .newClassPathResource("jbpm/processes/loanProcess.bpmn2"),
+	            ResourceType.BPMN2);
+	    return assets;
+	}
+}
