@@ -19,11 +19,12 @@
 		<version.org.drools>7.66.0.Final</version.org.drools>
     <version.org.jbpm>7.66.0.Final</version.org.jbpm>
 	</properties>
-	
-	<modules>  
-<module>m-one-project</module>   
-</modules> 
-	
+			
+	<modules>
+		<module>m-one-coreband</module> 
+		<module>m-one-project</module>  
+	</modules> 
+			
 	
 	 <dependencyManagement>
     <dependencies>
@@ -50,8 +51,7 @@
 		<artifactId>kie-spring</artifactId>
 		<version>7.66.0.Final</version>
 	</dependency>
-
-
+	
 <!--dependency>
     <groupId>org.kie</groupId>
     <artifactId>kie-api</artifactId>
@@ -73,22 +73,7 @@
     </dependencies>
   </dependencyManagement>
 
-		<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+
 	
 	<repositories>
     <repository>
