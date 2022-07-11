@@ -1,6 +1,5 @@
 # Project
 
- 
 The large categories consist of Ground (Group), Community, Breakdown, and Challenge.
 
 # Pre-requisite

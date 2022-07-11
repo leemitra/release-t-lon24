@@ -7,16 +7,12 @@ import javax.persistence.EntityManagerFactory;
 
 import org.kie.api.io.Resource;
 import org.kie.api.io.ResourceType;
-import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.manager.RuntimeEnvironment;
-import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.manager.RuntimeEngine;
+import org.kie.api.runtime.manager.RuntimeEnvironment;
 import org.kie.api.runtime.manager.RuntimeManager;
-import org.kie.api.runtime.process.ProcessInstance;
-import org.kie.internal.runtime.manager.context.EmptyContext;
-
 import org.kie.api.task.UserGroupCallback;
 import org.kie.internal.io.ResourceFactory;
+import org.kie.internal.runtime.manager.context.EmptyContext;
 import org.kie.spring.factorybeans.RuntimeEnvironmentFactoryBean;
 import org.kie.spring.factorybeans.RuntimeManagerFactoryBean;
 import org.kie.spring.factorybeans.TaskServiceFactoryBean;
@@ -90,6 +86,7 @@ public class JbpmConfig {
         assets.put(ResourceFactory
                 .newClassPathResource("jbpm/processes/sample.bpmn"),
                 ResourceType.BPMN2);
+        assets.put(ResourceFactory.newClassPathResource("jbpm/processes/bankLoadProcess.bpmn2"), ResourceType.BPMN2);        
         return assets;
     }
 
