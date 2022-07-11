@@ -13,9 +13,9 @@ import lombok.Data;
 @Table(name = "food_items")
 @Data
 public class FoodItems {
-    
+
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "food_name", length = 100)
     private String foodName;
