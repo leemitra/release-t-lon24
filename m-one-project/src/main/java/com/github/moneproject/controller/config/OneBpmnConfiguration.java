@@ -51,7 +51,7 @@ public class OneBpmnConfiguration {
 	private Map<String, ?> getJpaProperties() {
 		Map<String, Object> p = new HashMap<String, Object>();
 		p.put("hibernate.max_fetch_depth", 3);
-		p.put("hibernate.hbm2ddl.auto", "create");
+		p.put("hibernate.hbm2ddl.auto", "update");
 		p.put("hibernate.dialect", "org.hibernate.dialect.MariaDB106Dialect");
 		p.put("hibernate.id.new_generator_mappings", false);
 		p.put("hibernate.show_sql", true);
