@@ -1,4 +1,4 @@
-package com.github.moneproject.controller.config;
+package com.github.moneproject.config;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -68,9 +68,9 @@ public class JbpmConfig {
     }
 
     @Bean
-    public RuntimeEngine getRuntimeEngine(RuntimeManager runtimeManager){
+    public RuntimeEngine getRuntimeEngine(RuntimeManager runtimeManager) {
         return runtimeManager.getRuntimeEngine(EmptyContext.get());
-    } 
+    }
     /*
      * @Bean
      * public RuntimeEngine runtimeEngine(RuntimeManager runtimeManager) {
@@ -86,7 +86,7 @@ public class JbpmConfig {
         assets.put(ResourceFactory
                 .newClassPathResource("jbpm/processes/sample.bpmn"),
                 ResourceType.BPMN2);
-        assets.put(ResourceFactory.newClassPathResource("jbpm/processes/bankLoadProcess.bpmn2"), ResourceType.BPMN2);        
+        assets.put(ResourceFactory.newClassPathResource("jbpm/processes/bankLoadProcess.bpmn2"), ResourceType.BPMN2);
         return assets;
     }
 

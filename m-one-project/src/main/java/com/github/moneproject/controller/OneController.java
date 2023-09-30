@@ -14,18 +14,17 @@ public class OneController {
 
     @Autowired
     private RuntimeManager runtimeManager;
- 
 
     @GetMapping("/")
-    public String getHome(){
-        RuntimeEngine engine= runtimeManager.getRuntimeEngine(EmptyContext.get());
-        KieSession kieSession= engine.getKieSession();
-        ///ProcessInstance instance =  kieSession.startProcess("com.example.sample");
-        ProcessInstance instance =  kieSession.startProcess("com.group.bankLoadProcess");
+    public String getHome() {
+        RuntimeEngine engine = runtimeManager.getRuntimeEngine(EmptyContext.get());
+        KieSession kieSession = engine.getKieSession();
+        /// ProcessInstance instance = kieSession.startProcess("com.example.sample");
+        ProcessInstance instance = kieSession.startProcess("com.group.bankLoadProcess");
         System.out.println(instance.getId());
         runtimeManager.disposeRuntimeEngine(engine);
         kieSession.dispose();
         return "hello world";
     }
-    
+
 }

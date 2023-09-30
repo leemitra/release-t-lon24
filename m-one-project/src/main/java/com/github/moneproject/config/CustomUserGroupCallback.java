@@ -1,4 +1,4 @@
-package com.github.moneproject.controller.config;
+package com.github.moneproject.config;
 
 import java.util.ArrayList;
 import java.util.List;

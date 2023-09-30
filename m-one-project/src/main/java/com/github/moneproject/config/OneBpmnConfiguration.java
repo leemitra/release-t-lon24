@@ -1,4 +1,4 @@
-package com.github.moneproject.controller.config;
+package com.github.moneproject.config;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +41,7 @@ public class OneBpmnConfiguration {
 				"org.jbpm.persistence.correlation", "org.jbpm.executor.entities",
 				"org.jbpm.runtime.manager.impl.jpa",
 				"org.jbpm.services.task.impl.model",
-				"org.jbpm.services.task.audit.impl.model","com.github.model");
+				"org.jbpm.services.task.audit.impl.model", "com.github.model");
 		emf.setJpaPropertyMap(getJpaProperties());
 		emf.setMappingResources("META-INF/JBPMorm.xml", "META-INF/Taskorm.xml",
 				"META-INF/TaskAuditorm.xml");
@@ -51,7 +51,7 @@ public class OneBpmnConfiguration {
 	private Map<String, ?> getJpaProperties() {
 		Map<String, Object> p = new HashMap<String, Object>();
 		p.put("hibernate.max_fetch_depth", 3);
-		p.put("hibernate.hbm2ddl.auto", "update");
+		p.put("hibernate.hbm2ddl.auto", "create");
 		p.put("hibernate.dialect", "org.hibernate.dialect.MariaDB106Dialect");
 		p.put("hibernate.id.new_generator_mappings", false);
 		p.put("hibernate.show_sql", true);
@@ -62,5 +62,5 @@ public class OneBpmnConfiguration {
 	public PlatformTransactionManager transactionManager() throws NamingException {
 		return new JpaTransactionManager(entityManagerFactory().getObject());
 	}
- 
+
 }
