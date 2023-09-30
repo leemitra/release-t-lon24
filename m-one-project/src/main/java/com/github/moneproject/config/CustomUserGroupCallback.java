@@ -9,8 +9,9 @@ public class CustomUserGroupCallback  implements UserGroupCallback {
 //extends AbstractUserGroupInfo
 	@Override
 	public boolean existsUser(String userId) {
-		return true;// as per app requirement
-	}
+		return true;
+		// as per app requirement
+		}
 
 	@Override
 	public boolean existsGroup(String groupId) {
@@ -19,7 +20,7 @@ public class CustomUserGroupCallback  implements UserGroupCallback {
 
 	@Override
 	public List<String> getGroupsForUser(String userId) {
-		List<String> gps = new ArrayList<String>();
+		List<String> gps = new ArrayList<>();
 		gps.add("MANAGER");
 		gps.add("CUSTOMER");
 		return gps;
