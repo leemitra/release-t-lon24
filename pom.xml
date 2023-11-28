@@ -17,7 +17,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<version.org.drools>7.66.0.Final</version.org.drools>
-    <version.org.jbpm>7.66.0.Final</version.org.jbpm>
+    <version.org.jbpm>7.74.1.Final</version.org.jbpm>
 	</properties>
 			
 	<modules>
